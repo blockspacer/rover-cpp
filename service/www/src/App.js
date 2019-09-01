@@ -9,6 +9,8 @@ import { Row, Col } from "react-bootstrap";
 import Clocks from "components/Clocks";
 import Monitoring from "components/Monitoring";
 import config from "config/config";
+import FormTest from "./components/Form";
+import Game from "./components/Game";
 
 
 const App = () => {
@@ -37,7 +39,11 @@ const App = () => {
             </Navbar>
             <Row>
                 <Col>{process.env.NODE_ENV}</Col>
+                <Col><FormTest/></Col>
                 <Col md={{ offset: 8 }}><Monitoring title="System info" config={config}/></Col>
+            </Row>
+            <Row>
+                <Col><Game/></Col>
             </Row>
         </Container>
     );
