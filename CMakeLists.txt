@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 project(rover VERSION 1.0)
 
-set (MAIN_LIBS "empty")
 if (APPLE)
     message("Apple build")
     if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
@@ -34,6 +33,7 @@ enable_testing()
 
 #add_subdirectory(lib/json)
 #add_subdirectory(lib/serial)
+add_subdirectory(mqtt)
 add_subdirectory(platform)
 add_subdirectory(plugins/system)
 add_subdirectory(service)
