@@ -1,0 +1,30 @@
+version: "3.2"
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: rover
+      MYSQL_USER: darvik
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: 1234
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: darvik
+      RABBITMQ_DEFAULT_PASS: 1234
+
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: moquitto
+    ports:
+      - "9001:9001"
+      - "1883:1883"
