@@ -99,3 +99,16 @@ public:
     }
 };
 ```
+
+# Knowledge issues base
+
+### Segmentation fault on debug in Orange PI
+```
+Program received signal SIGSEGV, Segmentation fault.
+0x76fd9822 in ?? () from /lib/ld-linux-armhf.so.3
+```
+https://bugs.launchpad.net/gdb/+bug/1576432
+
+### Error during pretty printers setup: Error while executing Python code
+https://youtrack.jetbrains.com/issue/CPP-14177
+
