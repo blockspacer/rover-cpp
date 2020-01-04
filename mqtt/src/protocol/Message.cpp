@@ -4,6 +4,7 @@
 
 #include <ostream>
 #include <istream>
+#include <assert.h>
 #include "Message.h"
 #include "Protocol.h"
 

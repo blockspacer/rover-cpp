@@ -38,7 +38,7 @@ int HttpServer::run(RpcMethod::PtrVec& methods) {
 
         std::list<HttpWorker> workers;
         for (int i = 0; i < num_workers; ++i) {
-            workers.emplace_back(rpcHandler, acceptor, _docRoot);
+            workers.emplace_back(rpcHandler, ioc, acceptor, _docRoot);
             workers.back().start();
         }
 

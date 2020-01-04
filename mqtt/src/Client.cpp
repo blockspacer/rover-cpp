@@ -80,7 +80,7 @@ void Client::handleConnect(const system::error_code &err, tcp::resolver::iterato
     }
 }
 
-void Client::handleWrite(const boost::system::error_code &err) {
+void Client::handleWrite(const system::error_code &err) {
     if (err.value()) {
         close();
     } else {
@@ -88,11 +88,7 @@ void Client::handleWrite(const boost::system::error_code &err) {
                 socket_,
                 response_,
                 boost::asio::transfer_at_least(1),
-                boost::bind(
-                        &Client::handleRead,
-                        this,
-                        boost::asio::placeholders::error
-                )
+                [this](const system::error_code &err, std::size_t) { this->handleRead(err); }
         );
     }
 }

@@ -4,10 +4,8 @@ project(system VERSION 1.0)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
 if (UNIX AND NOT APPLE)
-    message("Build Unix")
     set(SRC_PLATFORM src/platform-linux/*.cpp)
 elseif (APPLE)
-    message("Build Apple")
     set(SRC_PLATFORM src/platform-mac-os/*.cpp)
 endif ()
 

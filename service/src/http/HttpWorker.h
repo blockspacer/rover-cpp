@@ -31,7 +31,7 @@ public:
 
     HttpWorker &operator=(HttpWorker const &) = delete;
 
-    HttpWorker(JsonRpcHandler::Ptr rpcRegistry, tcp::acceptor &acceptor, std::string docRoot);
+    HttpWorker(JsonRpcHandler::Ptr rpcRegistry, asio::io_service& service, tcp::acceptor &acceptor, std::string docRoot);
 
     void start();
 
@@ -50,7 +50,7 @@ private:
     std::string _docRoot;
 
     // The socket for the currently connected client.
-    tcp::socket _socket{_acceptor.get_executor().context()};
+    tcp::socket _socket;
 
     // The buffer for performing reads
     boost::beast::flat_static_buffer<32768> _buffer;
@@ -62,8 +62,7 @@ private:
     boost::optional<http::request_parser<request_body_t, alloc_t>> _parser;
 
     // The timer putting a time limit on requests.
-    boost::asio::basic_waitable_timer<std::chrono::steady_clock> _requestDeadline{
-            _acceptor.get_executor().context(), (std::chrono::steady_clock::time_point::max) ()};
+    boost::asio::basic_waitable_timer<std::chrono::steady_clock> _requestDeadline;
 
     // The string-based response message.
     boost::optional<HttpResponse> _stringResponse;

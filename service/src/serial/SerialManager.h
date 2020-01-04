@@ -13,6 +13,7 @@
 #include <map>
 #include <string>
 #include <thread>
+#include <mutex>
 
 class SerialManager :
         public SubsystemBase,

@@ -46,11 +46,13 @@ beast::string_view mimeType(beast::string_view path) {
     return "application/text";
 }
 
-HttpWorker::HttpWorker(JsonRpcHandler::Ptr rpcHandler, tcp::acceptor &acceptor, std::string docRoot)
+HttpWorker::HttpWorker(JsonRpcHandler::Ptr rpcHandler, boost::asio::io_service& service, tcp::acceptor &acceptor, std::string docRoot)
         : _rpcHandler(rpcHandler)
         , _acceptor(acceptor)
+        , _socket(service)
         , _docRoot(std::move(docRoot))
-        , _signals(acceptor.get_io_context())
+        , _signals(service)
+        , _requestDeadline(service, (std::chrono::steady_clock::time_point::max) ())
 {
     _signals.add(SIGINT);
     _signals.add(SIGTERM);
@@ -59,9 +61,9 @@ HttpWorker::HttpWorker(JsonRpcHandler::Ptr rpcHandler, tcp::acceptor &acceptor, 
 #endif
 
     _signals.async_wait(
-            [this](boost::system::error_code errorCode, int) {
-                _acceptor.close();
-                _acceptor.get_io_context().stop();
+            [this,&service](boost::system::error_code errorCode, int) {
+                 _acceptor.close();
+                service.stop();
             }
     );
 
