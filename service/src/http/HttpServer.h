@@ -12,7 +12,7 @@ class HttpServer {
 private:
     std::string _docRoot;
 public:
-    HttpServer(std::string docRoot);
+    explicit HttpServer(std::string_view docRoot);
     int run(RpcMethod::PtrVec& methods);
 };
 

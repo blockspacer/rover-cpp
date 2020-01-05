@@ -28,9 +28,18 @@ namespace mqtt {
             return res;
         }
 
-        static uint8_t unPackWord(std::istream &stream) {
+        static uint16_t unPackWord(std::istream &stream) {
             uint16_t res = unPackByte(stream) * 0x100;
             res += unPackByte(stream);
+
+            return res;
+        }
+
+        static std::string unPackString(std::istream &stream) {
+            std::string res;
+            res.resize(unPackWord(stream));
+
+            stream.read(res.data(), res.size());
 
             return res;
         }
@@ -76,7 +85,7 @@ namespace mqtt {
                 if (multiplier > 0x80 * 0x80 * 0x80) {
                     return MQTT_INVALID_INT_VALUE;
                 }
-                multiplier *= 128;
+                multiplier *= 0x80;
             } while ((encoded & 0x80) != 0);
 
             return result;

@@ -10,6 +10,11 @@
 #include <boost/bind.hpp>
 #include <protocol/Packet.h>
 
+class Event {
+public:
+    virtual void onEvent(std::string_view topic) = 0;
+};
+
 class Client {
     enum Status {
         Idle,

@@ -12,17 +12,18 @@
 #include <iostream>
 
 using namespace std;
+using namespace boost;
 
 #include "JsonRpcHandler.h"
 
-HttpServer::HttpServer(std::string docRoot) : _docRoot(std::move(docRoot)) {
+HttpServer::HttpServer(std::string_view docRoot) : _docRoot(docRoot) {
 
 }
 
-int HttpServer::run(RpcMethod::PtrVec& methods) {
+int HttpServer::run(RpcMethod::PtrVec &methods) {
     JsonRpcHandler::Ptr rpcHandler = std::make_shared<JsonRpcHandler>();
 
-    for (const auto& method : methods) {
+    for (const auto &method : methods) {
         rpcHandler->addMethod(method);
     }
 
@@ -30,11 +31,22 @@ int HttpServer::run(RpcMethod::PtrVec& methods) {
         auto const address = boost::asio::ip::make_address("0.0.0.0");
         unsigned short port = 8080;
         int num_workers = 4;
-        //bool spin = (std::strcmp(argv[5], "spin") == 0);
 
-        boost::asio::io_context ioc{1};
+        asio::io_context ioc{1};
 
         tcp::acceptor acceptor{ioc, {address, port}};
+
+        asio::signal_set signals(ioc);
+        signals.add(SIGINT);
+        signals.add(SIGTERM);
+#if defined(SIGQUIT)
+        signals.add(SIGQUIT);
+#endif
+        signals.async_wait(
+                [&acceptor, &ioc](boost::system::error_code errorCode, int code) {
+                    acceptor.close();
+                    ioc.stop();
+                });
 
         std::list<HttpWorker> workers;
         for (int i = 0; i < num_workers; ++i) {
@@ -46,8 +58,7 @@ int HttpServer::run(RpcMethod::PtrVec& methods) {
 
         return EXIT_SUCCESS;
     }
-    catch (const std::exception& e)
-    {
+    catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         return EXIT_FAILURE;
     }

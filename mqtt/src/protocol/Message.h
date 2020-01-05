@@ -12,20 +12,25 @@ namespace mqtt {
 
     class Message {
     protected:
+        uint8_t _type;
         Header header_{};
+    protected:
+        virtual void encode(boost::asio::streambuf& buf) { };
+        virtual void decode(boost::asio::streambuf& buf) { };
     public:
-        virtual void encode(boost::asio::streambuf& buf) = 0;
-        virtual void decode(boost::asio::streambuf& buf) = 0;
+        explicit Message(unsigned int type);
+        virtual void pack(boost::asio::streambuf& buf);
+        virtual void unPack(boost::asio::streambuf& buf);
     };
 
     class ConnectMessage : public Message {
     private:
-        Flags flags_;
-    public:
-        ConnectMessage();
-
+        Flags flags_{};
+    protected:
         void encode(boost::asio::streambuf& buf) override;
         void decode(boost::asio::streambuf& buf) override;
+    public:
+        ConnectMessage();
     };
 
     class ConnAckMessage : public Message {
@@ -39,46 +44,123 @@ namespace mqtt {
         } flags_{};	 /**< connack flags byte */
         uint8_t rc_{}; /**< connack reason code */
         uint16_t version_{};  /**< the version of MQTT */
-
-    public:
+    protected:
         void encode(boost::asio::streambuf& buf) override;
         void decode(boost::asio::streambuf& buf) override;
+    public:
+        ConnAckMessage();
     };
-
 
     class PingReqMessage : public Message {
     public:
         PingReqMessage();
-
-        void encode(boost::asio::streambuf& buf) override;
-        void decode(boost::asio::streambuf& buf) override;
     };
 
     class PingRespMessage : public Message {
     public:
         PingRespMessage();
-
-        void encode(boost::asio::streambuf& buf) override;
-        void decode(boost::asio::streambuf& buf) override;
     };
 
     class SubscribeMessage : public Message {
     private:
-        std::string topic_;
         uint16_t  msgId_;
+        std::string topic_;
+    protected:
+        void encode(boost::asio::streambuf& buf) override;
+        void decode(boost::asio::streambuf& buf) override;
     public:
-        SubscribeMessage(uint16_t  msgId, const std::string& topic);
+        SubscribeMessage(uint16_t  msgId, std::string_view topic);
+    };
 
+    class SubsAckMessage : public Message {
+    private:
+        uint16_t  msgId_{};
+        uint8_t rc_{};
+    protected:
+        void encode(boost::asio::streambuf& buf) override;
+        void decode(boost::asio::streambuf& buf) override;
+    public:
+        SubsAckMessage();
+    };
+
+    class UnSubscribeMessage : public Message {
+    private:
+        uint16_t  msgId_{};
+        std::string topic_;
+    protected:
+        void encode(boost::asio::streambuf& buf) override;
+        void decode(boost::asio::streambuf& buf) override;
+    public:
+        UnSubscribeMessage(uint16_t  msgId, std::string_view topic);
+    };
+
+    class UnSubAckMessage : public Message {
+    private:
+        uint16_t  msgId_{};
+        uint8_t rc_{};
+    protected:
+        void encode(boost::asio::streambuf& buf) override;
+        void decode(boost::asio::streambuf& buf) override;
+    public:
+        UnSubAckMessage();
+    };
+
+    class DisconnectMessage : public Message {
+    public:
+        DisconnectMessage();
+    };
+
+    class PublishMessage : public Message {
+    private:
+        uint16_t  msgId_{};
+        std::string topic_;
+        std::vector<std::byte> buf_;
+    public:
+        PublishMessage(uint16_t  msgId, std::string_view topic, const std::byte* data, std::size_t size);
+        PublishMessage(uint16_t  msgId, std::string_view topic);
+    protected:
         void encode(boost::asio::streambuf& buf) override;
         void decode(boost::asio::streambuf& buf) override;
     };
 
-    class SubsAckMessage : public Message {
-    public:
-        SubsAckMessage();
-
+    class PubAckMessage : public Message {
+    private:
+        uint16_t  msgId_{};
+    protected:
         void encode(boost::asio::streambuf& buf) override;
         void decode(boost::asio::streambuf& buf) override;
+    public:
+        PubAckMessage();
+    };
+
+    class PubRecMessage : public Message {
+    private:
+        uint16_t  msgId_{};
+    protected:
+        void encode(boost::asio::streambuf& buf) override;
+        void decode(boost::asio::streambuf& buf) override;
+    public:
+        PubRecMessage();
+    };
+
+    class PubRelMessage : public Message {
+    private:
+        uint16_t  msgId_{};
+    protected:
+        void encode(boost::asio::streambuf& buf) override;
+        void decode(boost::asio::streambuf& buf) override;
+    public:
+        PubRelMessage();
+    };
+
+    class PubCompMessage : public Message {
+    private:
+        uint16_t  msgId_{};
+    protected:
+        void encode(boost::asio::streambuf& buf) override;
+        void decode(boost::asio::streambuf& buf) override;
+    public:
+        PubCompMessage();
     };
 }
 

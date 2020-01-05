@@ -50,7 +50,7 @@ void Client::handleConnect(const system::error_code &err, tcp::resolver::iterato
     if (!err) {
         // The connection was successful. Send the request.
         mqtt::ConnectMessage connectRequest{};
-        connectRequest.encode(request_);
+        connectRequest.pack(request_);
 
         status_ = Connection;
 
@@ -105,14 +105,19 @@ void Client::handleRead(const boost::system::error_code &err) {
                 switch (header.bits.type) {
                     case mqtt::MQTT_MSG_CONNACK: {
                         mqtt::ConnAckMessage ack{};
-                        ack.decode(response_);
+                        ack.unPack(response_);
                         status_ = Connected;
                         onConnected();
                     }
                         break;
                     case mqtt::MQTT_MSH_PINGRESP: {
                         mqtt::PingRespMessage resp{};
-                        resp.decode(response_);
+                        resp.unPack(response_);
+                        break;
+                    }
+                    case mqtt::MQTT_MSH_SUBSACK: {
+                        mqtt::SubsAckMessage resp{};
+                        resp.unPack(response_);
                         break;
                     }
                     default: {
@@ -136,25 +141,27 @@ void Client::restartPingTimer() {
 }
 
 void Client::handleTimeOut(const boost::system::error_code &err) {
-    std::cout << "Ping timeout" << std::endl;
+    if (!err) {
+        std::cout << "Ping timeout" << std::endl;
 
-    mqtt::PingReqMessage pingReqMessage{};
-    pingReqMessage.encode(request_);
+        mqtt::PingReqMessage pingReqMessage{};
+        pingReqMessage.pack(request_);
 
-    async_write(
-            socket_,
-            request_,
-            boost::bind(
-                    &Client::handleWrite,
-                    this,
-                    boost::asio::placeholders::error
-            )
-    );
+        async_write(
+                socket_,
+                request_,
+                boost::bind(
+                        &Client::handleWrite,
+                        this,
+                        boost::asio::placeholders::error
+                )
+        );
+    }
 }
 
 void Client::subscribe(const std::string& topic) {
     mqtt::SubscribeMessage subscribe(msgId(), topic);
-    subscribe.encode(request_);
+    subscribe.pack(request_);
 
     async_write(
             socket_,
@@ -168,5 +175,5 @@ void Client::subscribe(const std::string& topic) {
 }
 
 void Client::onConnected() {
-    //subscribe("test");
+    subscribe("test2");
 }
