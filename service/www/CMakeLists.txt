@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project (www VERSION 1.0 LANGUAGES CXX)
+project(www VERSION 1.0 LANGUAGES CXX)
 
 include_directories(${CMAKE_JS_INC})
 
@@ -11,7 +11,7 @@ file(GLOB SRCS_G
         src/views/*.js
         src/routes/*.js
         src/components/*.js
-)
+        )
 
 add_library(${PROJECT_NAME} SHARED ${SRCS_G} ${CMAKE_JS_SRC})
 

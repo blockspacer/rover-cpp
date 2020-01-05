@@ -9,12 +9,14 @@
 #include "config.h"
 
 #if CFG_OS_MACOSX
+
 #include "platform-mac-os/CpuInfo.h"
+
 #endif
 
 namespace plugin {
 
-    SystemModule::SystemModule(Logger::Ptr logger) : ModuleBase(logger){
+    SystemModule::SystemModule(Logger::Ptr logger) : ModuleBase(logger) {
 #if CFG_OS_MACOSX
         SMCOpen();
 #endif

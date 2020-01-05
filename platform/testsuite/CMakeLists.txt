@@ -8,7 +8,7 @@ file(GLOB TEST_SRCS src/*.cpp)
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/../src)
 
-add_executable(platform_testsuite ${TEST_SRCS} )
+add_executable(platform_testsuite ${TEST_SRCS})
 
 enable_testing()
 

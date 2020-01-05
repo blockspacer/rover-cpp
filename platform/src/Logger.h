@@ -19,10 +19,15 @@ public:
     typedef std::shared_ptr<Logger> Ptr;
 
     virtual void trace(const std::string &message) = 0;
+
     virtual void debug(const std::string &message) = 0;
+
     virtual void info(const std::string &message) = 0;
+
     virtual void warning(const std::string &message) = 0;
+
     virtual void error(const std::string &message) = 0;
+
     virtual void fatal(const std::string &message) = 0;
 };
 

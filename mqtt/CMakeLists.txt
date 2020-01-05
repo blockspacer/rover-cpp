@@ -4,7 +4,7 @@ project(mqtt VERSION 1.0)
 file(GLOB SRCS_G
         src/*.cpp
         src/protocol/*.cpp
-)
+        )
 
 include_directories(
         /usr/local/include

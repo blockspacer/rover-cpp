@@ -81,7 +81,7 @@ namespace mqtt {
  * Structure to hold an MQTT version 5 property of any type
  */
     struct Property {
-         PropertyCodes identifier; /**<  The MQTT V5 property id. A multi-byte integer. */
+        PropertyCodes identifier; /**<  The MQTT V5 property id. A multi-byte integer. */
         /** The value of the property, as a union of the different possible types. */
         union {
             uint8_t byte;       /**< holds the value of a byte property type */

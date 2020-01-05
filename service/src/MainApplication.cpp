@@ -25,10 +25,10 @@ void MainApplication::run() {
     }
      */
 
-    for (const auto& subSystem : this->getSubsystems()) {
+    for (const auto &subSystem : this->getSubsystems()) {
         const auto registry = dynamic_cast<RpcRegistry *>(subSystem.get());
         if (registry != nullptr) {
-            for (const auto& rpc : registry->getMethods()) {
+            for (const auto &rpc : registry->getMethods()) {
                 logger().info("register rpc-method: " + rpc.first);
                 methods.push_back(rpc.second);
             }

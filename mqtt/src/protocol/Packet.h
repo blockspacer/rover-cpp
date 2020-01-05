@@ -35,7 +35,7 @@ namespace mqtt {
             bool retain : 1;
             unsigned int type : 4;    /**< message type nibble */
         } bits;
-    } ;
+    };
 
     struct Packet {
         Header header;    /**< MQTT header byte */
@@ -47,13 +47,13 @@ namespace mqtt {
 
             struct {
                 union {
-                    int : 1;	/**< unused */
-                    bool cleanStart : 1;	/**< cleansession flag */
-                    bool will : 1;			/**< will flag */
-                    unsigned int willQoS : 2;	/**< will QoS value */
-                    bool willRetain : 1;		/**< will retain setting */
-                    bool password : 1; 			/**< 3.1 password */
-                    bool username : 1;			/**< 3.1 user name */
+                    int : 1;    /**< unused */
+                    bool cleanStart : 1;    /**< cleansession flag */
+                    bool will : 1;            /**< will flag */
+                    unsigned int willQoS : 2;    /**< will QoS value */
+                    bool willRetain : 1;        /**< will retain setting */
+                    bool password : 1;            /**< 3.1 password */
+                    bool username : 1;            /**< 3.1 user name */
                 };
             } bits;
         };
@@ -77,18 +77,15 @@ namespace mqtt {
     /**
      * Data for a connack packet.
      */
-    struct ConnAck
-    {
+    struct ConnAck {
         Header header; /**< MQTT header byte */
-        union
-        {
-            uint8_t all;	/**< all connack flags */
-            struct
-            {
+        union {
+            uint8_t all;    /**< all connack flags */
+            struct {
                 bool sessionPresent : 1;    /**< was a session found on the server? */
-                unsigned int reserved : 7;	/**< message type nibble */
+                unsigned int reserved : 7;    /**< message type nibble */
             } bits;
-        } flags;	 /**< connack flags byte */
+        } flags;     /**< connack flags byte */
         uint8_t rc; /**< connack reason code */
         uint16_t MQTTVersion;  /**< the version of MQTT */
         //Properties properties; /**< MQTT 5.0 properties.  Not used for MQTT < 5.0 */

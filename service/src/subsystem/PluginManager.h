@@ -23,11 +23,11 @@ public:
 
     void postConstruct(Application &app) override;
 
-    Module::Ptr getModule(const char* name) {
+    Module::Ptr getModule(const char *name) {
         return getModule(std::string(name));
     }
 
-    Module::Ptr getModule(const std::string& name) {
+    Module::Ptr getModule(const std::string &name) {
         Module::Ptr result;
         auto it = _modules.find(name);
         if (it != _modules.end()) {
@@ -40,7 +40,7 @@ public:
     Module::PtrVec getModules() {
         Module::PtrVec result;
 
-        for (auto & _module : _modules) {
+        for (auto &_module : _modules) {
             result.push_back(_module.second);
         }
 
@@ -48,6 +48,7 @@ public:
     }
 
     void preDestroy() override;
+
 private:
     std::vector<boost::function<PluginCreator>> _libs;
 

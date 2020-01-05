@@ -9,7 +9,7 @@
     "name": "rover"
   },
   "log": {
-    "level" : "debug",
+    "level": "debug",
     "file": true,
     "console": true
   }

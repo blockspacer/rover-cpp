@@ -9,7 +9,7 @@ file(GLOB SRCS_G
         src/properties/*.cpp
         src/subsystem/*.cpp
         src/serial/*.cpp
-)
+        )
 
 file(GLOB LIB_SRCS_G
         src/exception/*.cpp
@@ -18,7 +18,7 @@ file(GLOB LIB_SRCS_G
         src/http/*.cpp
         src/rpc/*.cpp
         src/serial/*.cpp
-)
+        )
 
 include_directories(
         /usr/local/include

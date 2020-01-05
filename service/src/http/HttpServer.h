@@ -13,7 +13,8 @@ private:
     std::string _docRoot;
 public:
     explicit HttpServer(std::string_view docRoot);
-    int run(RpcMethod::PtrVec& methods);
+
+    int run(RpcMethod::PtrVec &methods);
 };
 
 

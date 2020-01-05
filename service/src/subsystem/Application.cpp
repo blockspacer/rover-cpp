@@ -21,7 +21,7 @@ const char *Application::name() const {
     return "main";
 }
 
-Logger& Application::logger() {
+Logger &Application::logger() {
     return *_logger;
 }
 
@@ -31,7 +31,7 @@ Logger::Ptr Application::loggerPtr() {
 
 void Application::postConstruct(Application &app) {
     logger().info("construct application");
-    for (auto & spSubsystem : _spSubsystems) {
+    for (auto &spSubsystem : _spSubsystems) {
         logger().info(std::string("construct ") + spSubsystem->name());
         spSubsystem->postConstruct(app);
     }
@@ -74,7 +74,7 @@ int Application::run(int argc, char *argv[]) {
     _properties = properties;
 
     logger().debug("init log system");
-    ((LoggerSubsystem*)(_logger.get()))->postConstruct(*this);
+    ((LoggerSubsystem *) (_logger.get()))->postConstruct(*this);
 
     this->addSubsystem(std::make_shared<PluginManager>());
 

@@ -10,7 +10,7 @@ include_directories(${PROJECT_SOURCE_DIR}/../src)
 
 enable_testing()
 
-add_executable(system_testsuite ${TEST_SRCS} )
+add_executable(system_testsuite ${TEST_SRCS})
 
 target_link_libraries(system_testsuite PRIVATE system ${CONAN_LIBS})
 

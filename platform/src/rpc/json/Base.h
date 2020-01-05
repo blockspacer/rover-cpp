@@ -22,7 +22,7 @@ namespace json {
 
     class Decoder {
     public:
-        virtual void decode(const std::string& json) = 0;
+        virtual void decode(const std::string &json) = 0;
 
         virtual ~Decoder() = default;
     };

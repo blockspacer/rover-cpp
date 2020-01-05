@@ -12,6 +12,7 @@
 class JsonRpcHandler : public RpcRegistry {
 public:
     typedef std::shared_ptr<JsonRpcHandler> Ptr;
+
     void handle(JsonRpcRequest &request, JsonRpcResponse &response) {
         try {
             response.id = request.id;
@@ -28,7 +29,7 @@ public:
                 response.error = error;
             }
 
-        } catch (std::exception& ex) {
+        } catch (std::exception &ex) {
             response.jsonrpc = "2.0";
             JsonRcpError error;
             error.code = InternalError;

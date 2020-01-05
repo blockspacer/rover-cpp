@@ -6,4 +6,4 @@ export default function useNavigation() {
     };
 }
 
-const defaultMenu = [{ component: SystemPage } ];
+const defaultMenu = [{component: SystemPage}];

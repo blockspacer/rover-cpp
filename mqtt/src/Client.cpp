@@ -135,9 +135,10 @@ void Client::handleRead(const boost::system::error_code &err) {
     }
 
 }
+
 void Client::restartPingTimer() {
     pingTimer_.expires_at(pingTimer_.expires_at() + boost::posix_time::seconds(5));
-    pingTimer_.async_wait([this](const boost::system::error_code &err) { this->handleTimeOut(err);} );
+    pingTimer_.async_wait([this](const boost::system::error_code &err) { this->handleTimeOut(err); });
 }
 
 void Client::handleTimeOut(const boost::system::error_code &err) {
@@ -159,7 +160,7 @@ void Client::handleTimeOut(const boost::system::error_code &err) {
     }
 }
 
-void Client::subscribe(const std::string& topic) {
+void Client::subscribe(const std::string &topic) {
     mqtt::SubscribeMessage subscribe(msgId(), topic);
     subscribe.pack(request_);
 

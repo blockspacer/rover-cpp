@@ -222,14 +222,14 @@ namespace mqtt {
 
         buf_.resize(size);
 
-        std::memcpy(buf_.data(), (const char*)buf.data().data() + pos, size);
+        std::memcpy(buf_.data(), (const char *) buf.data().data() + pos, size);
     }
 
     PubAckMessage::PubAckMessage() : Message(mqtt::MQTT_MSH_PUBACK) {
 
     }
 
-    void PubAckMessage::encode(boost::asio::streambuf& buf) {
+    void PubAckMessage::encode(boost::asio::streambuf &buf) {
         std::ostream stream(&buf);
 
         /// 3.4.2 Variable header
@@ -238,7 +238,7 @@ namespace mqtt {
         }
     }
 
-    void PubAckMessage::decode(boost::asio::streambuf& buf) {
+    void PubAckMessage::decode(boost::asio::streambuf &buf) {
         std::istream stream(&buf);
 
         /// 3.4.2 Variable header
@@ -251,7 +251,7 @@ namespace mqtt {
 
     }
 
-    void PubRecMessage::encode(boost::asio::streambuf& buf) {
+    void PubRecMessage::encode(boost::asio::streambuf &buf) {
         std::ostream stream(&buf);
 
         /// 3.5.2 Variable header
@@ -260,7 +260,7 @@ namespace mqtt {
         }
     }
 
-    void PubRecMessage::decode(boost::asio::streambuf& buf) {
+    void PubRecMessage::decode(boost::asio::streambuf &buf) {
         std::istream stream(&buf);
 
         /// 3.5.2 Variable header
@@ -273,7 +273,7 @@ namespace mqtt {
 
     }
 
-    void PubRelMessage::encode(boost::asio::streambuf& buf) {
+    void PubRelMessage::encode(boost::asio::streambuf &buf) {
         std::ostream stream(&buf);
 
         /// 3.6.2 Variable header
@@ -282,7 +282,7 @@ namespace mqtt {
         }
     }
 
-    void PubRelMessage::decode(boost::asio::streambuf& buf) {
+    void PubRelMessage::decode(boost::asio::streambuf &buf) {
         std::istream stream(&buf);
 
         /// 3.6.2 Variable header
@@ -295,7 +295,7 @@ namespace mqtt {
 
     }
 
-    void PubCompMessage::encode(boost::asio::streambuf& buf) {
+    void PubCompMessage::encode(boost::asio::streambuf &buf) {
         std::ostream stream(&buf);
 
         /// 3.7.2 Variable header
@@ -304,7 +304,7 @@ namespace mqtt {
         }
     }
 
-    void PubCompMessage::decode(boost::asio::streambuf& buf) {
+    void PubCompMessage::decode(boost::asio::streambuf &buf) {
         std::istream stream(&buf);
 
         /// 3.7.2 Variable header

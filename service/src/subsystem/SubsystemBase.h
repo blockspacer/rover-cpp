@@ -13,7 +13,8 @@ class SubsystemBase : public Subsystem, public Logger {
 private:
     Logger::Ptr _logger;
 private:
-    std::string message(const std::string& msg);
+    std::string message(const std::string &msg);
+
 public:
     void trace(const std::string &message) override;
 
@@ -28,6 +29,7 @@ public:
     void fatal(const std::string &message) override;
 
     void postConstruct(Application &app) override;
+
     void preDestroy() override;
 
     ~SubsystemBase() override = default;

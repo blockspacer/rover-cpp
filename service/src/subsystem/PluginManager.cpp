@@ -46,7 +46,7 @@ void PluginManager::postConstruct(Application &app) {
         Module::Ptr module = pluginCreator(app.loggerPtr());
         _modules[module->name()] = module;
 
-        for (const auto& item : module->getRpcMethods()) {
+        for (const auto &item : module->getRpcMethods()) {
             addMethod(item.second);
         }
     }

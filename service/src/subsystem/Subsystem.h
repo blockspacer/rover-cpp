@@ -13,8 +13,10 @@ class Subsystem {
 public:
     typedef std::shared_ptr<Subsystem> Ptr;
 
-    virtual const char * name() const = 0;
-    virtual void postConstruct(Application& app) = 0;
+    virtual const char *name() const = 0;
+
+    virtual void postConstruct(Application &app) = 0;
+
     virtual void preDestroy() = 0;
 
     virtual ~Subsystem() = default;

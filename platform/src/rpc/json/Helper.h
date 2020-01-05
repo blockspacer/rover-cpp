@@ -29,7 +29,9 @@ private:
     UnMarshaller::Ptr _unMarshaller;
 public:
     JsonDecoder(const JsonDecoder &copy) = delete;
+
     JsonDecoder() = delete;
+
     template<class T>
     explicit JsonDecoder(std::shared_ptr<T> &unMarshaller) {
         _unMarshaller = unMarshaller;
@@ -40,7 +42,7 @@ public:
 
 static void unMarshal(const tree &ptr, const std::string &tag, boost::optional<tree> &value) {
     auto iter = ptr.find(tag);
-    if (iter != ptr.end()){
+    if (iter != ptr.end()) {
         value = *iter;
     }
 }
@@ -81,7 +83,7 @@ static void marshal(tree &ptr, const std::string &tag, const tree &value) {
 template<typename T>
 static void marshal(tree &ptr, const std::string &tag, const std::vector<T> &value) {
     tree arr;
-    for (const auto& item : value) {
+    for (const auto &item : value) {
         if constexpr (std::is_base_of<Marshaller, T>::value) {
             arr.push_back(item.marshal());
         } else {
@@ -120,7 +122,7 @@ static boost::optional<tree> marshal(const Marshaller &value) {
 }
 
 template<typename T>
-static boost::optional<tree> marshal(const  T &value) {
+static boost::optional<tree> marshal(const T &value) {
     if constexpr (std::is_base_of<boost::optional<T>, T>::value) {
         if (value) {
             return marshal(value.value());
@@ -137,7 +139,7 @@ static boost::optional<tree> marshal(const  T &value) {
 template<typename T>
 static boost::optional<tree> marshal(const std::vector<T> &value) {
     tree res;
-    for (const auto& item : value) {
+    for (const auto &item : value) {
         res.push_back(marshal(item).value());
     }
 
@@ -145,7 +147,7 @@ static boost::optional<tree> marshal(const std::vector<T> &value) {
 }
 
 template<typename T>
-static T unMarshal(const  tree &value) {
+static T unMarshal(const tree &value) {
     if constexpr (std::is_base_of<UnMarshaller, T>::value) {
         T inc;
         inc.unMarshal(value);

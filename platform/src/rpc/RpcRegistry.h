@@ -18,7 +18,7 @@ public:
         _methods[method->name()] = method;
     }
 
-    boost::optional<RpcMethod::Ptr> findMethod(const std::string& method) {
+    boost::optional<RpcMethod::Ptr> findMethod(const std::string &method) {
         boost::optional<RpcMethod::Ptr> result;
         auto iter = _methods.find(method);
         if (iter != _methods.end()) {

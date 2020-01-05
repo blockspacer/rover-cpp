@@ -73,7 +73,6 @@ namespace mqtt {
             return res;
         }
 
-
         static int unPackVariableInt(std::istream &stream) {
             int multiplier = 1;
             int result = 0;
@@ -90,22 +89,6 @@ namespace mqtt {
 
             return result;
         }
-
-        /*
-        static int packInt(int len, const uint8_t *stream, uint32_t size) {
-            do {
-                uint8_t encoded = len % 0x80;
-                len /= 0x80;
-                if (len > 0) {
-                    encoded |= 0x80;
-                }
-
-                *stream = encoded;
-            } while (len > 0);
-
-            return
-        }
-         */
     };
 }
 

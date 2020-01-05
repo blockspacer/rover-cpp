@@ -5,15 +5,15 @@
 #include "ModuleBase.h"
 #include <sstream>
 
-ModuleBase::ModuleBase(Logger::Ptr logger) : _logger(logger) { 
-    assert(logger);    
+ModuleBase::ModuleBase(Logger::Ptr logger) : _logger(logger) {
+    assert(logger);
 }
 
 std::map<std::string, RpcMethod::Ptr> ModuleBase::getRpcMethods() const {
     return getMethods();
 }
 
-std::string ModuleBase::message(const std::string& msg) {
+std::string ModuleBase::message(const std::string &msg) {
     std::stringstream str;
     str << "[mod][" << name() << "] " << msg;
 
@@ -23,7 +23,7 @@ std::string ModuleBase::message(const std::string& msg) {
 void ModuleBase::trace(const std::string &msg) {
     if (_logger) {
         _logger->trace(message(msg));
-    }    
+    }
 }
 
 void ModuleBase::debug(const std::string &msg) {

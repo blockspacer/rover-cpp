@@ -9,7 +9,7 @@ file(GLOB SRCS_G
         src/plugin/*.cpp
         src/rpc/*.cpp
         src/rpc/json/*.cpp
-)
+        )
 
 include_directories(
         ${PROJECT_SOURCE_DIR}/src

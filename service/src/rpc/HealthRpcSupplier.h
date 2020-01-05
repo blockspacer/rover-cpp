@@ -19,6 +19,7 @@ public:
     std::string name() const override {
         return "health";
     }
+
     HealthResponse exec() const override;
 };
 

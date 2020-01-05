@@ -33,7 +33,8 @@ public:
 
     HttpWorker &operator=(HttpWorker const &) = delete;
 
-    HttpWorker(JsonRpcHandler::Ptr rpcRegistry, asio::io_service& service, tcp::acceptor &acceptor, std::string_view docRoot);
+    HttpWorker(JsonRpcHandler::Ptr rpcRegistry, asio::io_service &service, tcp::acceptor &acceptor,
+               std::string_view docRoot);
 
     void start();
 

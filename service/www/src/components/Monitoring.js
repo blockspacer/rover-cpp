@@ -48,7 +48,7 @@ const SystemInfo = (props) => {
                         {renderRow("platform", sysInfo.platform)}
                         {renderRow("osName", sysInfo.osName)}
                         {renderRow("cpu", sysInfo.cpuCount)}
-                        {renderRow("mem", sysInfo.physicalMemory/1024/1024/1024 + " Gb")}
+                        {renderRow("mem", sysInfo.physicalMemory / 1024 / 1024 / 1024 + " Gb")}
                         {renderRow("cpu temp", sysInfo.cpuTemp)}
                         {renderRow("battery temp", sysInfo.batteryTemp)}
                         </tbody>

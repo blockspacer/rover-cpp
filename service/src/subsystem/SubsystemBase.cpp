@@ -6,7 +6,7 @@
 #include "Application.h"
 #include <sstream>
 
-std::string SubsystemBase::message(const std::string& msg) {
+std::string SubsystemBase::message(const std::string &msg) {
     std::stringstream str;
     str << "[sub][" << name() << "] " << msg;
 

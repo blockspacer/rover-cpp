@@ -12,7 +12,7 @@ file(GLOB SRCS_G
         src/*.cpp
         src/rpc/*.cpp
         ${SRC_PLATFORM}
-)
+        )
 
 include_directories(
         ${PROJECT_SOURCE_DIR}/src
@@ -28,7 +28,7 @@ if (UNIX AND NOT APPLE)
 elseif (APPLE)
     #find_library(IOKIT_LIBRARY IOKit)
     target_link_libraries(system platform ${CONAN_LIBS} ${IOKIT_LIBRARY})
-endif()
+endif ()
 
 SET(CMAKE_LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/../../lib)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/../../lib)

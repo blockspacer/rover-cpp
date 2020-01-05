@@ -16,6 +16,7 @@ namespace plugin {
     class SystemModule : public ModuleBase {
     public:
         SystemModule(Logger::Ptr logger);
+
         std::string name() const override;
 
         // Factory method

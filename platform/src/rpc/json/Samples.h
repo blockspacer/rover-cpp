@@ -58,6 +58,7 @@ END_DECLARE_DTO
 BEGIN_DECLARE_DTO(TestMessage)
 __DECLARE_DTO_FIELD(int, id)
 __DECLARE_DTO_FIELD(Message, message)
+
     BEGIN_JSON_UNMARSHAL
             ITEM_JSON_UNMARSHAL(id)
             ITEM_JSON_UNMARSHAL(message)

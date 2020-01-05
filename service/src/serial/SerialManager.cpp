@@ -63,7 +63,7 @@ SerialManager::handler SerialManager::openDevice(const std::string &port, uint32
     return port;
 }
 
-size_t SerialManager::writeDevice(const SerialManager::handler &device, const std::string& data) {
+size_t SerialManager::writeDevice(const SerialManager::handler &device, const std::string &data) {
     std::lock_guard<std::mutex> guard(_mutexDevice);
 
     const auto it = _openDevices.find(device);
@@ -74,7 +74,7 @@ size_t SerialManager::writeDevice(const SerialManager::handler &device, const st
     return -1;
 }
 
-size_t SerialManager::writeDevice(const SerialManager::handler &device, const uint8_t* data, size_t size) {
+size_t SerialManager::writeDevice(const SerialManager::handler &device, const uint8_t *data, size_t size) {
     std::lock_guard<std::mutex> guard(_mutexDevice);
 
     const auto it = _openDevices.find(device);
@@ -85,7 +85,7 @@ size_t SerialManager::writeDevice(const SerialManager::handler &device, const ui
     return -1;
 }
 
-size_t SerialManager::readDevice(const SerialManager::handler &device, uint8_t * data, size_t size) {
+size_t SerialManager::readDevice(const SerialManager::handler &device, uint8_t *data, size_t size) {
     std::lock_guard<std::mutex> guard(_mutexDevice);
 
     const auto it = _openDevices.find(device);
@@ -101,7 +101,7 @@ size_t SerialManager::readDevice(const SerialManager::handler &device, uint8_t *
 
         return it->second.device->read(data, size);
     }
-    
+
     return -1;
 }
 

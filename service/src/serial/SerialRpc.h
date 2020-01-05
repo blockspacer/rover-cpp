@@ -115,13 +115,13 @@ public:
         return "serial.write";
     }
 
-    void exec(const SerialWriteDeviceParams& params) const override {
+    void exec(const SerialWriteDeviceParams &params) const override {
         _serialManager->writeDevice(params.port, params.data);
     }
 
 };
 
-typedef  std::vector<uint8_t > Buffer;
+typedef std::vector<uint8_t> Buffer;
 
 class SerialRpcInitDevice : public RpcConsumer<std::string> {
 private:
@@ -134,21 +134,21 @@ public:
         return "serial.init";
     }
 
-    static Buffer push(Buffer& buffer, protocol::Packet& packet, size_t size) {
+    static Buffer push(Buffer &buffer, protocol::Packet &packet, size_t size) {
         size_t pos = buffer.size();
         buffer.resize(pos + size);
 
-        memcpy((void*)(buffer.data() + pos), (const void *) &packet, size);
+        memcpy((void *) (buffer.data() + pos), (const void *) &packet, size);
 
         return buffer;
     }
 
-    void exec(const std::string& device) const override {
+    void exec(const std::string &device) const override {
         protocol::Mode mode(13, protocol::Output);
         protocol::DigitalWrite switchOn(13, true);
         protocol::Delay delay(5000);
-        protocol::DigitalWrite switchOff (13, false);
-        protocol::Message message ("done");
+        protocol::DigitalWrite switchOff(13, false);
+        protocol::Message message("done");
 
         size_t size = 256;
         uint8_t data[256];
@@ -176,11 +176,11 @@ public:
          */
 
         base = mode.pack(data, size);
-        base += switchOn.pack(data + base, size-base);
-        base += delay.pack(data + base, size-base);
-        base += switchOff.pack(data + base, size-base);
+        base += switchOn.pack(data + base, size - base);
+        base += delay.pack(data + base, size - base);
+        base += switchOff.pack(data + base, size - base);
         delay.delay = 1000;
-        base += delay.pack(data + base, size-base);
+        base += delay.pack(data + base, size - base);
         //base += message.pack(data + base, size-base);
 
         protocol::RegisterBatch batch(0, data, base);
@@ -188,7 +188,7 @@ public:
         base = batch.pack(batchData, 256);
         res = _serialManager->writeDevice(device, batchData, base);
 
-        _serialManager->readDevice(device, (uint8_t*)&code, sizeof(code));
+        _serialManager->readDevice(device, (uint8_t *) &code, sizeof(code));
         if (code == batch.code) {
             protocol::ExecBatch exec(0);
             base = exec.pack(batchData, 256);

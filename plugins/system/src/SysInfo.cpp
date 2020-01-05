@@ -16,7 +16,9 @@
 #include <cstdio>
 
 #if CFG_OS_MACOSX
+
 #include "platform-mac-os/CpuInfo.h"
+
 #endif
 
 template<typename T, size_t N>
