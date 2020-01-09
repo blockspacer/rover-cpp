@@ -23,6 +23,7 @@ set(CMAKE_INSTALL_NAME_DIR "")
 
 enable_testing()
 
+#add_subdirectory(lib/arduino)
 #add_subdirectory(lib/json)
 #add_subdirectory(lib/serial)
 add_subdirectory(mqtt)
