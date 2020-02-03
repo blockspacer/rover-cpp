@@ -20,7 +20,7 @@ HttpServer::HttpServer(std::string_view docRoot) : _docRoot(docRoot) {
 
 }
 
-int HttpServer::run(RpcMethod::PtrVec &methods) {
+int HttpServer::run(RpcMethod::PtrVec &methods, HttpServerConfig config) {
     JsonRpcHandler::Ptr rpcHandler = std::make_shared<JsonRpcHandler>();
 
     for (const auto &method : methods) {
@@ -28,9 +28,9 @@ int HttpServer::run(RpcMethod::PtrVec &methods) {
     }
 
     try {
-        auto const address = boost::asio::ip::make_address("0.0.0.0");
-        unsigned short port = 8080;
-        int num_workers = 4;
+        auto const address = boost::asio::ip::make_address(config.address.front());
+        unsigned short port = config.port.get_value_or(8080);
+        int num_workers = config.workers.get_value_or(4);
 
         asio::io_context ioc{1};
 

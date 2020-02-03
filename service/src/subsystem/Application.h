@@ -10,6 +10,7 @@
 #include <string>
 
 #include <Logger.h>
+#include <subsystem/config/ConfigSource.h>
 
 #include "Subsystem.h"
 #include "exception/LogicException.h"
@@ -59,10 +60,16 @@ public:
 
     ~Application() override;
 
+    const ConfigSource::Ptr &getConfigSource() const {
+        return _configSource;
+    }
+
 private:
     SubSystemVec _spSubsystems;
 
     SPProperties _properties;
+
+    ConfigSource::Ptr _configSource;
 
     Logger::Ptr _logger;
 };

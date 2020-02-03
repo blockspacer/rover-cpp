@@ -14,6 +14,7 @@
 #include <string>
 #include <thread>
 #include <mutex>
+#include <subsystem/config/Config.h>
 
 class SerialManager :
         public SubsystemBase,

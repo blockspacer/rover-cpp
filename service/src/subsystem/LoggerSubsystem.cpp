@@ -67,26 +67,26 @@ void LoggerSubsystem::preDestroy() {
 
 }
 
-void LoggerSubsystem::trace(const std::string &message) {
+void LoggerSubsystem::trace(std::string_view message) {
     BOOST_LOG_TRIVIAL(trace) << message;
 }
 
-void LoggerSubsystem::debug(const std::string &message) {
+void LoggerSubsystem::debug(std::string_view message) {
     BOOST_LOG_TRIVIAL(debug) << message;
 }
 
-void LoggerSubsystem::info(const std::string &message) {
+void LoggerSubsystem::info(std::string_view message) {
     BOOST_LOG_TRIVIAL(info) << message;
 }
 
-void LoggerSubsystem::warning(const std::string &message) {
+void LoggerSubsystem::warning(std::string_view message) {
     BOOST_LOG_TRIVIAL(warning) << message;
 }
 
-void LoggerSubsystem::error(const std::string &message) {
+void LoggerSubsystem::error(std::string_view message) {
     BOOST_LOG_TRIVIAL(error) << message;
 }
 
-void LoggerSubsystem::fatal(const std::string &message) {
+void LoggerSubsystem::fatal(std::string_view message) {
     BOOST_LOG_TRIVIAL(fatal) << message;
 }

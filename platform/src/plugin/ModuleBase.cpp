@@ -13,44 +13,44 @@ std::map<std::string, RpcMethod::Ptr> ModuleBase::getRpcMethods() const {
     return getMethods();
 }
 
-std::string ModuleBase::message(const std::string &msg) {
+std::string ModuleBase::message(std::string_view msg) {
     std::stringstream str;
     str << "[mod][" << name() << "] " << msg;
 
     return str.str();
 }
 
-void ModuleBase::trace(const std::string &msg) {
+void ModuleBase::trace(std::string_view msg) {
     if (_logger) {
         _logger->trace(message(msg));
     }
 }
 
-void ModuleBase::debug(const std::string &msg) {
+void ModuleBase::debug(std::string_view msg) {
     if (_logger) {
         _logger->debug(message(msg));
     }
 }
 
-void ModuleBase::info(const std::string &msg) {
+void ModuleBase::info(std::string_view msg) {
     if (_logger) {
         _logger->info(message(msg));
     }
 }
 
-void ModuleBase::warning(const std::string &msg) {
+void ModuleBase::warning(std::string_view msg) {
     if (_logger) {
         _logger->warning(message(msg));
     }
 }
 
-void ModuleBase::error(const std::string &msg) {
+void ModuleBase::error(std::string_view msg) {
     if (_logger) {
         _logger->error(message(msg));
     }
 }
 
-void ModuleBase::fatal(const std::string &msg) {
+void ModuleBase::fatal(std::string_view msg) {
     if (_logger) {
         _logger->fatal(message(msg));
     }

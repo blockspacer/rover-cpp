@@ -10,6 +10,7 @@
 #include <Logger.h>
 
 #include <string>
+#include <subsystem/config/Config.h>
 
 #define PROP_LOG_LEVEL "log.level"
 #define PROP_LOG_ENABLE_FILE "log.file"
@@ -25,17 +26,17 @@ public:
 
     void preDestroy() override;
 
-    void trace(const std::string &message) override;
+    void trace(std::string_view message) override;
 
-    void debug(const std::string &message) override;
+    void debug(std::string_view message) override;
 
-    void info(const std::string &message) override;
+    void info(std::string_view message) override;
 
-    void warning(const std::string &message) override;
+    void warning(std::string_view message) override;
 
-    void error(const std::string &message) override;
+    void error(std::string_view message) override;
 
-    void fatal(const std::string &message) override;
+    void fatal(std::string_view message) override;
 };
 
 

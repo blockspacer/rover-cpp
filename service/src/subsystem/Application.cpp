@@ -15,6 +15,9 @@
 #include "subsystem/PluginManager.h"
 #include <rpc/RpcRegistry.h>
 
+#include "config/Config.h"
+#include "config/HttpServerConfig.h"
+
 using namespace std;
 
 const char *Application::name() const {
@@ -64,9 +67,15 @@ int Application::run(int argc, char *argv[]) {
 
     logger().debug("try load application properties");
     try {
+        _configSource = std::make_shared<ConfigSource>(path.parent_path().append("etc").append(DEFAULT_CONFIG_NAME).string());
+        auto logCfg = _configSource->get<LogConfig>("log");
+        auto cfg = _configSource->get<Config>();
+        auto httpConfig = _configSource->get<HttpServerConfig>("http");
+
         auto appProperties = std::make_shared<PropertiesJson>();
         appProperties->load(path.parent_path().append("etc").append(DEFAULT_CONFIG_NAME).string());
         properties->addProperties(appProperties);
+
     } catch (std::exception &ex) {
         std::cout << "can't load default settings: " << ex.what() << std::endl;
     }
@@ -93,7 +102,7 @@ void Application::run() {
 
 Application::Application() {
     _logger = make_shared<LoggerSubsystem>();
-};
+}
 
 Application::~Application() = default;
 

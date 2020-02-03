@@ -12,5 +12,6 @@
     "level": "debug",
     "file": true,
     "console": true
-  }
+  },
+  "logLevel": 1
 }

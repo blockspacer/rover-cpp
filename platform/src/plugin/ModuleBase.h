@@ -13,7 +13,7 @@ class ModuleBase : public Module, protected RpcRegistry {
 private:
     Logger::Ptr _logger;
 protected:
-    std::string message(const std::string &msg);
+    std::string message(std::string_view msg);
 
 public:
     explicit ModuleBase(Logger::Ptr logger);
@@ -21,17 +21,17 @@ public:
     std::map<std::string, RpcMethod::Ptr> getRpcMethods() const override;
 
 
-    void trace(const std::string &message) override;
+    void trace(std::string_view message) override;
 
-    void debug(const std::string &message) override;
+    void debug(std::string_view message) override;
 
-    void info(const std::string &message) override;
+    void info(std::string_view message) override;
 
-    void warning(const std::string &message) override;
+    void warning(std::string_view message) override;
 
-    void error(const std::string &message) override;
+    void error(std::string_view message) override;
 
-    void fatal(const std::string &message) override;
+    void fatal(std::string_view message) override;
 };
 
 

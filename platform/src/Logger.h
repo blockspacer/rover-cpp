@@ -18,17 +18,17 @@ class Logger {
 public:
     typedef std::shared_ptr<Logger> Ptr;
 
-    virtual void trace(const std::string &message) = 0;
+    virtual void trace(std::string_view message) = 0;
 
-    virtual void debug(const std::string &message) = 0;
+    virtual void debug(std::string_view message) = 0;
 
-    virtual void info(const std::string &message) = 0;
+    virtual void info(std::string_view message) = 0;
 
-    virtual void warning(const std::string &message) = 0;
+    virtual void warning(std::string_view message) = 0;
 
-    virtual void error(const std::string &message) = 0;
+    virtual void error(std::string_view message) = 0;
 
-    virtual void fatal(const std::string &message) = 0;
+    virtual void fatal(std::string_view message) = 0;
 };
 
 

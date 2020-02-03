@@ -7,6 +7,7 @@
 
 
 #include <rpc/RpcMethod.h>
+#include <subsystem/config/HttpServerConfig.h>
 
 class HttpServer {
 private:
@@ -14,7 +15,7 @@ private:
 public:
     explicit HttpServer(std::string_view docRoot);
 
-    int run(RpcMethod::PtrVec &methods);
+    int run(RpcMethod::PtrVec &methods, HttpServerConfig config);
 };
 
 

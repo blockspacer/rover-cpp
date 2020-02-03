@@ -37,7 +37,7 @@ void MainApplication::run() {
 
 
     HttpServer server(getProperties()->getString(PROP_APPLICATION_DATA_DIR) + "www");
-    server.run(methods);
+    server.run(methods, getConfigSource()->get<HttpServerConfig>("http"));
 }
 
 int MainApplication::run(int argc, char **argv) {

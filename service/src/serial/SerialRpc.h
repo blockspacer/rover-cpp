@@ -9,7 +9,6 @@
 #include <rpc/json/Helper.h>
 
 #include "serial/SerialManager.h"
-#include "../../../lib/arduino/Protocol.h"
 #include <string.h>
 
 BEGIN_DECLARE_DTO(SerialPortInfo)
@@ -134,6 +133,7 @@ public:
         return "serial.init";
     }
 
+    /*
     static Buffer push(Buffer &buffer, protocol::Packet &packet, size_t size) {
         size_t pos = buffer.size();
         buffer.resize(pos + size);
@@ -142,8 +142,10 @@ public:
 
         return buffer;
     }
+     */
 
     void exec(const std::string &device) const override {
+        /*
         protocol::Mode mode(13, protocol::Output);
         protocol::DigitalWrite switchOn(13, true);
         protocol::Delay delay(5000);
@@ -157,7 +159,6 @@ public:
         size_t base = 0;
         size_t res = 0;
 
-        /*
         base = delay.pack(data, 256);
         res = _serialManager->writeDevice(device, data, base);
         _serialManager->readDevice(device, (uint8_t*)&code, sizeof(code));
@@ -173,7 +174,6 @@ public:
         base = switchOff.pack(data, 256);
         res = _serialManager->writeDevice(device, data, base);
         _serialManager->readDevice(device, (uint8_t*)&code, sizeof(uint16_t));
-         */
 
         base = mode.pack(data, size);
         base += switchOn.pack(data + base, size - base);
@@ -195,6 +195,7 @@ public:
             res = _serialManager->writeDevice(device, batchData, base);
             _serialManager->readDevice(device, (uint8_t *) &code, sizeof(code));
         }
+        */
     }
 
 };

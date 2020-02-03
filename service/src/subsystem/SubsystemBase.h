@@ -8,29 +8,64 @@
 
 #include <Logger.h>
 #include "Subsystem.h"
+#include "Application.h"
+#include <sstream>
 
 class SubsystemBase : public Subsystem, public Logger {
 private:
     Logger::Ptr _logger;
 private:
-    std::string message(const std::string &msg);
+    std::string message(const std::string_view msg) {
+        std::stringstream str;
+        str << "[sub][" << name() << "] " << msg;
+
+        return str.str();
+    }
 
 public:
-    void trace(const std::string &message) override;
+    void trace(std::string_view msg) override {
+        if (_logger) {
+            _logger->trace(message(msg));
+        }
+    }
 
-    void debug(const std::string &message) override;
+    void debug(const std::string_view msg) override {
+        if (_logger) {
+            _logger->debug(message(msg));
+        }
+    }
 
-    void info(const std::string &message) override;
+    void info(std::string_view msg) override {
+        if (_logger) {
+            _logger->info(message(msg));
+        }
+    }
 
-    void warning(const std::string &message) override;
+    void warning(std::string_view msg) override {
+        if (_logger) {
+            _logger->warning(message(msg));
+        }
+    }
 
-    void error(const std::string &message) override;
+    void error(std::string_view msg) override {
+        if (_logger) {
+            _logger->error(message(msg));
+        }
+    }
 
-    void fatal(const std::string &message) override;
+    void fatal(std::string_view msg) override {
+        if (_logger) {
+            _logger->fatal(message(msg));
+        }
+    }
 
-    void postConstruct(Application &app) override;
+    void postConstruct(Application &app) override {
+        _logger = app.loggerPtr();
+    }
 
-    void preDestroy() override;
+    void preDestroy() override {
+
+    }
 
     ~SubsystemBase() override = default;
 };

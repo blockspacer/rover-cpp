@@ -8,6 +8,7 @@ file(GLOB SRCS_G
         src/rpc/*.cpp
         src/properties/*.cpp
         src/subsystem/*.cpp
+        src/subsystem/config/*.cpp
         src/serial/*.cpp
         )
 
